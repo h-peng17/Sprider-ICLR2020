@@ -34,7 +34,7 @@ def parserICLR(driver, url, path, name):
         paper = papers[i]
         result = {}
         result["title"] = paper.h4.a.string.strip()
-        result["href"] = "https://openreview.net/" + paper.h4.a["href"]
+        result["href"] = "https://openreview.net" + paper.h4.a["href"]
         result["authors"] = []
         for author in paper.find("div", class_="note-authors").find_all("a"):
             result["authors"].append(author.text)
