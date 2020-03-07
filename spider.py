@@ -2,8 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from tqdm import trange 
+import argparse
 import json 
-import pdb 
 import os 
 EXECUTABLE_PATH = 'C:\WebDriver\chromedriver.exe' 
 
@@ -49,6 +49,15 @@ def parserICLR(driver, url, path, name):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--url", dest="url", default="https://openreview.net/group?id=ICLR.cc/2020/Conference#accept-poster",
+                        help="url to download")
+    parser.add_argument("--save_dir", dest="save_dir", default=".",
+                        help="save path")
+    parser.add_argument("--filename", dest="filename", default="iclr",
+                        help="dumped file name")
+    args = parser.parse_args()
+
     # don't show the broswer window
     options = Options() 
     options.add_argument("--headless")
@@ -59,11 +68,12 @@ if __name__ == "__main__":
     # wait for async loading
     driver.implicitly_wait(20)
 
-
-    url = "https://openreview.net/group?id=ICLR.cc/2020/Conference#accept-poster"
     
-    # get content
-    parserICLR(driver, url, ".", "iclr2020")
+    if not os.path.exists(args.save_dir):
+        os.mkdir(args.save_dir)
+
+    # 
+    parserICLR(driver, args.url, args.save_dir, args.filename)
 
 
 
