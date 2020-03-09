@@ -12,7 +12,7 @@ pip install selenium
 Then, install beautifulsoup.
 ```
 pip install beautifulsoup4
-pip install xlml
+pip install lxml
 ```
 
 ## Run
